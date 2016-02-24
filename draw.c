@@ -82,7 +82,7 @@ void third_octant(int x0, int y0, int x1, int y1, screen s, color c) {
   int dx = x1 - x0;
   int dy = y1 - y0;
   
-  int d = dy - 2 * dx;
+  int d = 2 * dy - dx;
   while( y >= y1 ) {
     plot( s, c, x, y);
     if( d > 0 ) {
