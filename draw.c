@@ -18,14 +18,22 @@ void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
   else {
     //    printf("in\n");
     double m = (y1 - y0) / (x1 - x0);
-    if( (m >= 0 && m <= 1) ) 
+    if( (m >= 0 && m < 1) ) {
+      printf("first octant\n");
       first_octant( x0, y0, x1, y1, s, c );
-    else if( (m > 1) )
+    }
+    else if( (m >= 1) ) {
+      printf("second octant\n");
       second_octant( x0, y0, x1, y1, s, c );
-    else if( (m < -1 ))
+    }
+    else if( (m <= -1 )) {
+      printf("third octant\n");
       third_octant( x0, y0, x1, y1, s, c );
-    else
+    }
+    else {
+      printf("fourth octant\n");
       fourth_octant( x0, y0, x1, y1, s, c );
+    }
   }
 }
 
@@ -55,23 +63,53 @@ void second_octant(int x0, int y0, int x1, int y1, screen s, color c) {
   int dx = x1 - x0;
   int dy = y1 - y0;
   
-  int d = 2 * dx - dy;
-  while( x <= x1 ) {
+  int d = dy - 2 * dx;
+  while( y <= y1 ) {
     plot( s, c, x, y);
     if( d < 0 ) {
-      y += 1;
-      d -= 2 * dx;
+      x += 1;
+      d += 2 * dy;
     }
-    x += 1;
-    d += dy;
+    y += 1;
+    d -= 2 * dx;
   }
 }
 
 void third_octant(int x0, int y0, int x1, int y1, screen s, color c) {
+  int x = x0;
+  int y = y0;
 
+  int dx = x1 - x0;
+  int dy = y1 - y0;
+  
+  int d = dy - 2 * dx;
+  while( y >= y1 ) {
+    plot( s, c, x, y);
+    if( d > 0 ) {
+      x += 1;
+      d += 2 * dy;
+    }
+    y -= 1;
+    d += 2 * dx;
+  }
 }
 
 void fourth_octant(int x0, int y0, int x1, int y1, screen s, color c) {
+  int x = x0;
+  int y = y0;
 
+  int dx = x1 - x0;
+  int dy = y1 - y0;
+  
+  int d = dy - 2 * dx;
+  while( y >= y1 ) {
+    plot( s, c, x, y);
+    if( d > 0 ) {
+      x += 1;
+      d += 2 * dy;
+    }
+    y -= 1;
+    d += 2 * dx;
+  }
 }
 
